@@ -3,92 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexia Copilot Login</title>
+    <title>Copilot Studio Chat</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        :root {
+            --primary-color: #0d4eff;
+            --text-color: #333;
+        }
+        body, html {
             margin: 0;
-            background-color: #f0f2f5;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
         }
-        .login-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 300px;
-        }
-        .login-container h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .login-form input {
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: -1;
         }
-        .login-form button {
+        #main-container {
+            height: 100vh;
+            position: relative;
+        }
+        #webchat {
+            height: 100%;
             width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+        }
+        #reset-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: white;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .login-form button:hover {
-            background-color: #45a049;
-        }
-        #chat-container {
-            display: none;
-            width: 100%;
-            height: 100vh;
         }
     </style>
 </head>
 <body>
-    <div id="login-page" class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form id="login-form" class="login-form">
-            <input type="text" id="username" placeholder="Usuario" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit">Entrar</button>
-        </form>
-    </div>
+    <div class="background"></div>
 
-    <div id="chat-container">
+    <div id="main-container">
+        <button id="reset-button">Reiniciar Chat</button>
         <iframe 
+            id="copilot-iframe"
             src="https://copilotstudio.microsoft.com/environments/Default-d661a783-3860-490a-a7a9-c8f52cf7e8fc/bots/cr932_nexIa/webchat?__version__=2" 
-            frameborder="0" 
-            style="width: 100%; height: 100%;">
+            style="width: 100%; height: 100%; border: none;">
         </iframe>
     </div>
 
     <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Credenciales genéricas
-            const validUsername = 'usuario';
-            const validPassword = 'nexia2024';
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (username === validUsername && password === validPassword) {
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('chat-container').style.display = 'block';
-            } else {
-                alert('Credenciales incorrectas. Intente de nuevo.');
-            }
+        // Botón de reinicio
+        document.getElementById('reset-button').addEventListener('click', function() {
+            location.reload();
         });
     </script>
 </body>
